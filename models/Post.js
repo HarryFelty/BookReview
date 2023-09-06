@@ -20,12 +20,12 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        book_title: {
+        // book_title: {
 
-        },
-        user_id: {
+        // },
+        // user_id: {
 
-        }
+        // }
     },
     {
         sequelize,
