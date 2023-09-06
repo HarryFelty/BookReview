@@ -20,8 +20,13 @@ const hbs = exphbs.create({ helpers });
 // TODO: Add a comment describing the functionality of this object
 //session object that stores info about session with the client, stores in db incase server crash
 const sess = {
-  secret: 'Super secret secret'
-  cookie: {},
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
