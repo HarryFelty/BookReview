@@ -4,7 +4,7 @@ const { User } = require('../../models');
 router.post('/login', async (req, res) => {
   try {
     //finds single user where email = what is passed into body of request
-    const userData = await User.findOne({ where: { user_name: req.body.name } });
+    const userData = await User.findOne({ where: { user_name: req.body.user_name } });
 
     if (!userData) {
       res
