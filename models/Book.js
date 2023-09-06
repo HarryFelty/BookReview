@@ -1,10 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Post extends Model {
+class Book extends Model {
 }
 
-Post.init(
+Book.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -16,14 +16,21 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        text: {
+        author: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-
-        user_id: {
+        pages: {
             type: DataTypes.INTEGER,
-            references: { model: 'user', key: 'id' }
+        },
+        pub_year: {
+            type: DataTypes.INTEGER,
+        },
+        description: {
+            type: DataTypes.STRING,
+        },
+        link: {
+            type: DataTypes.STRING
         }
     },
     {
@@ -31,8 +38,8 @@ Post.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'post',
+        modelName: 'book',
     }
 );
 
-module.exports = Post;
+module.exports = Book;
