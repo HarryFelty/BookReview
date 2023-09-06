@@ -4,6 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
+const bcrypt = require('bcrypt')
 
 const sequelize = require('./config/connection');
 
@@ -19,7 +20,7 @@ const hbs = exphbs.create({ helpers });
 // TODO: Add a comment describing the functionality of this object
 //session object that stores info about session with the client, stores in db incase server crash
 const sess = {
-  secret: 'Super secret secret',
+  secret: 'Super secret secret'
   cookie: {},
   resave: false,
   saveUninitialized: true,

@@ -3,29 +3,26 @@ const { User } = require('../../models');
 
 router.post('/login', async (req, res) => {
   try {
-    // TODO: Add a comment describing the functionality of this expression
     //finds single user where email = what is passed into body of request
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({ where: { email: req.body.name } });
 
     if (!userData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
-    // TODO: Add a comment describing the functionality of this expression
     //sents const that is true or false if pw data from db = pw in request
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
-    // TODO: Add a comment describing the functionality of this method
     //saves current session
     req.session.save(() => {
       req.session.user_id = userData.id;
@@ -41,7 +38,6 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
-    // TODO: Add a comment describing the functionality of this method
     //deletes the session on logout
     req.session.destroy(() => {
       res.status(204).end();
