@@ -2,11 +2,11 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 
 router.get('/', async (req, res) => {
-    let post = await Post.findAll();
+    let posts = await Post.findAll();
 
-    post = Post.map(posts => posts.get({ plain: true }));
+    posts = posts.map(post => post.get({ plain: true }));
 
-    res.json(post);
+    res.json(posts);
 })
 
 router.post('/', async (req, res) => {
@@ -16,17 +16,24 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    let post = await Post.update(
-        {
-            title: req.body.title,
-            text: req.body.text
-        },
-        {
-            where: {
-                id: req.params.id
-            }
-        }
-    );
+    try {
+        let post = await Post.update(
+            {
+                title: req.body.title,
+                text: req.body.text
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            },
+
+        );
+        res.status(200).json(post)
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
 
 });
 
