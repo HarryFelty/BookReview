@@ -16,22 +16,22 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    try{
-    let post = await Post.update(
-        {
-            title: req.body.title,
-            text: req.body.text
-        },
-        {
-            where: {
-                id: req.params.id
-            }
-        },
+    try {
+        let post = await Post.update(
+            {
+                title: req.body.title,
+                text: req.body.text
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            },
 
-    );
-    res.status(200).json(post)
+        );
+        res.status(200).json(post)
     }
-    catch(err){
+    catch (err) {
         res.status(500).json(err)
     }
 
