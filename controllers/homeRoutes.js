@@ -2,22 +2,22 @@ const router = require('express').Router();
 const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
-  try {
-    let posts = await Post.findAll({
-      include: [{
-        model: User,
-        attributes: ['user_name']
-      }]
-    });
+// router.get('/', async (req, res) => {
+//   try {
+//     let posts = await Post.findAll({
+//       include: [{
+//         model: User,
+//         attributes: ['user_name']
+//       }]
+//     });
 
-    posts = posts.map(post => post.get({ plain: true }));
-    console.log(posts);
-    res.render('homepage', { posts });
-  } catch {
-    res.status(500).json(err)
-  }
-})
+//     posts = posts.map(post => post.get({ plain: true }));
+//     console.log(posts);
+//     res.render('homepage', { posts });
+//   } catch {
+//     res.status(500).json(err)
+//   }
+// })
 
 router.get('/', withAuth, async (req, res) => {
   try {

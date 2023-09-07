@@ -1,3 +1,8 @@
+
+{{#if logged_in}}
+{{> navBar}}
+{{/if}}
+
 <div class="grid gap-4 grid-cols-2 ">
  <div class="p-4 flex flex-col items-center ">
     Search new books
@@ -5,8 +10,6 @@
  <div class="p-4 flex flex-col items-center">
    Old book reviews
   </div>
-
-  
 <div id="posts">
   {{#each posts as |post|}}
   <div class="row align-center mb-5">
