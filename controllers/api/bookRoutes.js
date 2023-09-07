@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { User, Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
+
 router.get("/:title", async (req, res) => {
     try {
         let title = req.params.title;
