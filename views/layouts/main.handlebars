@@ -7,13 +7,13 @@
   <title>Book Reviews</title>
   <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
 </head>
 
 <body class="bg-gradient-to-b from-purple-500 to-teal-500">
   <header class="display-flex justify-space-between align-center p-2">
-    
-    
+
+
     {{#if logged_in}}
     <nav>
       <button class="btn bg-purple" id="logout">logout</button>
@@ -24,10 +24,9 @@
     {{{ body }}}
   </main>
   <footer>
-      
+
   </footer>
 
- 
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
