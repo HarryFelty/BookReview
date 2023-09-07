@@ -1,15 +1,14 @@
 <div id="posts">
-  {{#each post as |post| }}
+  {{#each posts as |post|}}
   <div class="row align-center mb-5">
     <div class="col-md-6">
-      <h2>{{user_name}}</h2>
     </div>
     <div class="col-md-6">
-      <h3>{{title}}</h3>
+      <h3>{{post.title}}</h3>
     </div>
     <div>
-      <h4>{{book_title}}</h4>
-      <p>{{text}}</p>
+      <h4>{{post.book_title}}</h4>
+      <p>{{post.text}}</p>
     </div>
   </div>
   {{/each}}

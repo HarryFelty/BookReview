@@ -1,14 +1,6 @@
 const router = require('express').Router();
 const { Post } = require('../../models');
 
-router.get('/', async (req, res) => {
-    let posts = await Post.findAll();
-
-    posts = posts.map(post => post.get({ plain: true }));
-
-    res.json(posts);
-})
-
 router.post('/', async (req, res) => {
     let post = await Post.create(req.body);
 
