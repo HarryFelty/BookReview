@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
 
     posts = posts.map(post => post.get({ plain: true }));
 
-    res.json(posts);
+    res.render('homepage', posts);
 })
 
 router.post('/', async (req, res) => {
