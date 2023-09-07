@@ -6,18 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Reviews</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/css/jass.css">
+  
 </head>
 
-<body>
+<body class="bg-gradient-to-b from-purple-500 to-teal-500">
   <header class="display-flex justify-space-between align-center p-2">
-    <h1>
-      User Registry
-    </h1>
+    
     
     {{#if logged_in}}
     <nav>
-      <button class="btn" id="logout">logout</button>
+      <button class="btn bg-purple" id="logout">logout</button>
     </nav>
     {{/if}}
   </header>
