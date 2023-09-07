@@ -8,8 +8,7 @@ const bcrypt = require('bcrypt')
 
 const sequelize = require('./config/connection');
 
-// TODO: Add a comment describing the functionality of this expression
-//allows use of sequelize to use and store session date
+
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
@@ -17,8 +16,6 @@ const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({ helpers });
 
-// TODO: Add a comment describing the functionality of this object
-//session object that stores info about session with the client, stores in db incase server crash
 const sess = {
   secret: 'Super secret secret',
   cookie: {
@@ -34,8 +31,6 @@ const sess = {
   })
 };
 
-// TODO: Add a comment describing the functionality of this statement
-//uses session object created above
 app.use(session(sess));
 
 app.engine('handlebars', hbs.engine);
@@ -44,6 +39,7 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("images"));
 
 app.use(routes);
 
