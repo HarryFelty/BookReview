@@ -1,22 +1,27 @@
 [
   {
     "user_name": "Admin",
+    "email": "Admin123@gmail.com",
     "password": "password123"
   },
   {
     "user_name": "Lernantino",
+    "email": "lernantino@gmail.com",
     "password": "password12345"
   },
   {
     "user_name": "Amiko",
+    "email": "Amiko@gmail.com",
     "password": "password12345"
   },
   {
     "user_name": "Jordan",
+    "email": "jordan@gmail.com",
     "password": "password12345"
   },
   {
     "user_name": "Blake",
+    "email": "blake@gmail.com",
     "password": "password12345"
   }
 ]
