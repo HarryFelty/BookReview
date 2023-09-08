@@ -24,8 +24,8 @@ router.get('/', withAuth, async (req, res) => {
 
     posts = posts.map(post => post.get({ plain: true }));
     console.log(posts);
-let dateFormatPost = posts.map((post)=> ({...post, createdAt: new Date(post.createdAt).toLocaleString()}))
-console.log(dateFormatPost)
+    let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
+    console.log(dateFormatPost)
     res.render('homepage', {
       posts,
       dateFormatPost,
