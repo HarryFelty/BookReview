@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { where } = require('sequelize');
 const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -38,5 +39,20 @@ router.get('/login', (req, res) => {
   }
   res.render('login');
 });
+
+router.get('/userposts', async (req, res) => {
+  try {
+    const userPosts = await User.findByPk(id, {
+      include: [{ model: Post }],
+    });
+
+    userPosts = userPosts.map((post) => post.get({ plain: true }));
+
+    res.render('userPosts', { userPosts })
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
 
 module.exports = router;
