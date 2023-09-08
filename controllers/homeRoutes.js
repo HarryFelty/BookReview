@@ -19,6 +19,9 @@ const withAuth = require('../utils/auth');
 //   }
 // })
 
+
+
+
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -27,7 +30,7 @@ router.get('/', async (req, res) => {
     });
 
     const users = userData.map((project) => project.get({ plain: true }));
-
+    console.log(users)
     res.render('homepage', {
       users,
       logged_in: req.session.logged_in,
@@ -38,25 +41,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const postData = await Post.findByPk(req.params.id({
-      include: [
-        {
-          model: Post
-        }
-      ],
+router.get('/post/:id', async (req, res) => {
 
-    }))
+  try {
+    const postData = await Post.findAll({where: {id: req.params.id}})
     const posts = postData.map((post) => post.get({ plain: true }))
-    res.render("post", {posts});
+    console.log(posts);
+    res.render("post", { posts });
   }
   catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 })
 
 router.get('/login', (req, res) => {
+  console.log("hello")
   console.log(req.session)
   if (req.session.logged_in) {
     res.redirect('/');
@@ -64,5 +64,6 @@ router.get('/login', (req, res) => {
   }
   res.render('login');
 });
+
 
 module.exports = router;
