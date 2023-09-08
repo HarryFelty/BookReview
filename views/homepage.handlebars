@@ -1,27 +1,38 @@
-
 {{#if logged_in}}
 {{> navBar}}
 {{/if}}
 
-<div class="grid gap-4 grid-cols-2 ">
- <div class="p-4 flex flex-col items-center ">
-    Search new books
-  </div>
- <div class="p-4 flex flex-col items-center">
-   Old book reviews
-  </div>
-<div id="posts">
-  {{#each posts as |post|}}
-  <div class="row align-center mb-5">
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-6">
-      <h3>{{post.title}}</h3>
-    </div>
+<div class="grid gap-4 grid-cols-2 m-5">
+  <div class="p-4 flex flex-col ">
     <div>
-      <h4>{{post.book_title}}</h4>
-      <p>{{post.text}}</p>
+  <label for="bookSearch" class="block font-bold mb-2">Find a Book:</label>
+  <div class="flex">
+    <input type="text" id="bookSearch" name="bookSearch" class="w-full py-2 px-3 border border-gray-300 rounded-md focus:ring focus:ring-indigo-300" placeholder="Enter book title">
+    <button type="button" class="ml-3 btn bg-sky-400 px-3 py-1 rounded-full mr-5 border border-purple-200 text-white
+      hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Find</button>
+  </div>
+</div>
+
+  </div>
+  <div class="p-4 flex flex-col border-double border-2 border-black">
+    <h3 class="underline text-2xl text-center">Old Book Reviews</h3>
+
+
+    <div id="posts">
+      {{#each dateFormatPost as |post|}}
+      <div class = "border-b-2 border-dashed border-gray-500">
+        <div>
+          <h3 class="text-xl m-5">{{post.title}} by {{post.user.user_name}}</h3>
+        </div>
+        <div>
+          <p class="inline italic ml-3">{{post.book.title}}</p>
+          <p class="inline "> by {{post.book.author}}</p>
+          <p class="m-3">{{post.text}}</p>
+        </div>
+      </div>
+      {{else}}
+      <p>No posts available.</p>
+      {{/each}}
     </div>
   </div>
-  {{/each}}
 </div>
