@@ -5,6 +5,26 @@ const withAuth = require('../utils/auth');
 
 
 
+// router.get('/', withAuth, async (req, res) => {
+//   try {
+//     const userData = await User.findAll({
+//       attributes: { exclude: ['password'] },
+//       order: [['user_name', 'ASC']],
+//     });
+
+//     const users = userData.map((project) => project.get({ plain: true }));
+//     let posts = await Post.findAll({
+//       include: [{
+//         model: User,
+//         attributes: ['user_name']
+//       },
+//       {
+//         model: Book
+//       }]
+//     });
+//   }
+// } catch (err))
+
 router.get('/', withAuth, async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -13,6 +33,7 @@ router.get('/', withAuth, async (req, res) => {
     });
 
     const users = userData.map((project) => project.get({ plain: true }));
+
     let posts = await Post.findAll({
       include: [{
         model: User,
@@ -20,10 +41,15 @@ router.get('/', withAuth, async (req, res) => {
       },
       {
         model: Book
-      }]
+
+      }
+      ]
     });
 
     posts = posts.map(post => post.get({ plain: true }));
+
+    // posts = posts.map(post => post.get({ plain: true }));
+
     console.log(posts);
     let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
     console.log(dateFormatPost)
@@ -101,15 +127,34 @@ router.get('/login', (req, res) => {
 
 router.get('/userposts', async (req, res) => {
   try {
-    const userPosts = await User.findByPk(id, {
-      include: [{ model: Post }],
-    });
+    // let userPosts = await User.findAll(
+    //   {
+    //     where: {
+    //       id: req.session.user_id
+    //     },
+    //   },
+    // );
 
-    userPosts = userPosts.map((post) => post.get({ plain: true }));
+    let postData = await Post.findAll(
+      {
+        where: {
+          user_id: req.session.user_id
+        },
+        include: [{ model: User }, { model: Book }]
+      },
+    );
 
-    res.render('userPosts', { userPosts })
+    // userPosts =userData[0].get({ plain: true }));
+    postData = postData.map((post) => post.get({ plain: true }));
+    // console.log(userPosts, postData);
+    console.log(postData);
+
+    // res.render('userPosts', { userPosts, postData })
+    res.render('userPosts', { postData })
+    // res.json(userPosts);
 
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
