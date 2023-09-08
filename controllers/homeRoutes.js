@@ -83,13 +83,11 @@ router.get('/post/:id', async (req, res) => {
     }
   }
   catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 })
 
 router.get('/login', (req, res) => {
-  console.log("hello")
   console.log(req.session)
   if (req.session.logged_in) {
     res.redirect('/');
@@ -121,27 +119,29 @@ router.get('/userposts', async (req, res) => {
 })
 
 router.get('/posts/:title', async (req, res) => {
-  console.log("title:", req.params.title);
   try {
     let bookPosts = await Post.findAll({
       include:
-        [{ model: Book }],
+        [
+          {model: User, 
+          attributes: ["user_name"]},
+          { model: Book }
+        ],
       where: {
         '$book.title$': {
           [Op.like]: `%${req.params.title}%`
         }
-      }
+      },
+      
 
     })
 
 
 
     bookPosts = bookPosts.map((post) => post.get({ plain: true }))
-    console.log(bookPosts)
     res.render('postList', { bookPosts });
   }
   catch (err) {
-    console.log(err)
     res.status(500).json(err);
   }
 })
