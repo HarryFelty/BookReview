@@ -1,3 +1,5 @@
+{{> navBar}}
+
 <div id="posts">
     {{#each postData as |post|}}
 
@@ -7,7 +9,7 @@
         </div>
         <div>
             <p class="inline italic ml-3">{{post.book.title}}</p>
-            {{!-- <p class="inline "> by {{post.book.author}}</p> --}}
+            <p class="inline"> by {{post.book.author}}</p>
             <p class="m-3">{{post.text}}</p>
         </div>
     </div>
@@ -16,4 +18,4 @@
     {{/each}}
 
 </div>
-<p>{{user.[0].user_name}}</p>
+<script src="../js/logout.js"></script>
