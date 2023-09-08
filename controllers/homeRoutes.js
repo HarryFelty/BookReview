@@ -23,30 +23,10 @@ router.get('/', withAuth, async (req, res) => {
       }]
     });
 
-
-router.get('/', withAuth, async (req, res) => {
-  try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['user_name', 'ASC']],
-    });
-
-    const users = userData.map((project) => project.get({ plain: true }));
-
-    let posts = await Post.findAll({
-      include: [{
-        model: User,
-        attributes: ['user_name']
-      }]
-    });
-
-    posts = posts.map(post => post.get({ plain: true }));
-
-
     posts = posts.map(post => post.get({ plain: true }));
     console.log(posts);
-let dateFormatPost = posts.map((post)=> ({...post, createdAt: new Date(post.createdAt).toLocaleString()}))
-console.log(dateFormatPost)
+    let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
+    console.log(dateFormatPost)
     res.render('homepage', {
       posts,
 
