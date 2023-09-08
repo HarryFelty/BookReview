@@ -22,6 +22,7 @@ router.get('/', withAuth, async (req, res) => {
         model: Book
       }]
     });
+<<<<<<< HEAD
   }
   catch(err){
     res.status(500).json(err);
@@ -45,11 +46,13 @@ router.get('/', withAuth, async (req, res) => {
 
     posts = posts.map(post => post.get({ plain: true }));
 
+=======
+>>>>>>> d910a340e8caf2705ce24d7492c8155d91dc180c
 
     posts = posts.map(post => post.get({ plain: true }));
     console.log(posts);
-let dateFormatPost = posts.map((post)=> ({...post, createdAt: new Date(post.createdAt).toLocaleString()}))
-console.log(dateFormatPost)
+    let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
+    console.log(dateFormatPost)
     res.render('homepage', {
       posts,
 
