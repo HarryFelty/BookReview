@@ -31,6 +31,9 @@ Book.init(
         },
         link: {
             type: DataTypes.STRING
+        },
+        age_rating: {
+            type: DataTypes.STRING
         }
     },
     {
