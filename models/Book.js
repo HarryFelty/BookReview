@@ -20,6 +20,9 @@ Book.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        category: {
+            type: DataTypes.STRING,
+        },
         pages: {
             type: DataTypes.INTEGER,
         },
@@ -27,9 +30,12 @@ Book.init(
             type: DataTypes.INTEGER,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
         },
         link: {
+            type: DataTypes.STRING
+        },
+        age_rating: {
             type: DataTypes.STRING
         }
     },

@@ -2,9 +2,19 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 
 router.post('/', async (req, res) => {
-    let post = await Post.create(req.body);
-
-    res.json(post);
+    try{
+        let newPost = await Post.create(
+            {
+                title: req.body.title,
+                text: req.body.text,
+                user_id: req.body.user_id,
+                book_id: req.body.book_id,
+            })
+        res.status(200).json(newPost);
+    }
+    catch (err){
+        res.status(500).json(err)
+    }
 });
 
 router.put('/:id', async (req, res) => {

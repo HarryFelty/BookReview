@@ -5,11 +5,14 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6">
+            <p>{{post.title}}</p>
+            <p>{{post.text}}</p>
+            <p> post by: {{post.user.user_name}}</p>
             <h3>{{post.book.title}}</h3>
         </div>
         <div>
             <h4>{{post.book.author}}</h4>
-            <p>{{post.text}}</p>
+            <h4>{{post.book.description}}</h4>
         </div>
     </div>
     {{/each}}
