@@ -1,15 +1,19 @@
 <div id="posts">
-    {{#each userPosts as |post|}}
-    <div class="row align-center mb-5">
-        <div class="col-md-6">
-        </div>
-        <div class="col-md-6">
-            <h3>{{post.title}}</h3>
+    {{#each postData as |post|}}
+
+    <div class="border-b-2 border-dashed border-gray-500">
+        <div>
+            <h3 class="text-xl m-5">{{post.title}} by {{user.user_name}}</h3>
         </div>
         <div>
-            <h4>{{post.book_title}}</h4>
-            <p>{{post.text}}</p>
+            <p class="inline italic ml-3">{{post.book.title}}</p>
+            {{!-- <p class="inline "> by {{post.book.author}}</p> --}}
+            <p class="m-3">{{post.text}}</p>
         </div>
     </div>
+    {{else}}
+    <p>No posts available.</p>
     {{/each}}
+
 </div>
+<p>{{user.[0].user_name}}</p>
