@@ -41,7 +41,57 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/post/:id', async (req, res) => {
+
+  try {
+    const postData = await Post.findAll({
+      where: { id: req.params.id }, include: [{
+        model: Book
+      }]
+    })
+    const posts = postData.map((post) => post.get({ plain: true }))
+    console.log("POSTS", posts);
+    // console.log(posts[0].book.title.trim());
+    let trimmedTitle = posts[0].book.title.split(" ").join("")
+    console.log(trimmedTitle)
+    try {
+      let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${trimmedTitle}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
+      let data = await response.json()
+
+      let bookInfo = {
+        bookTitle: data.items[0].volumeInfo.title,
+        bookAuthor: data.items[0].volumeInfo.authors,
+        bookCategories: data.items[0].volumeInfo.categories,
+        bookDescription: data.items[0].volumeInfo.description,
+        bookMaturity: data.items[0].volumeInfo.maturityRating,
+      }
+      console.log(bookInfo)
+      console.log(posts)
+      res.render('post', {
+    
+        ...bookInfo,
+        posts,
+        logged_in: req.session.logged_in
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
+
+    // fetch(`/api/books/${trimmedTitle}`).then(res=> res.json()).then(data=> {
+    //   console.log(data)
+    // })
+    // res.render("post", { posts });
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
 router.get('/login', (req, res) => {
+  console.log("hello")
+  console.log(req.session)
   if (req.session.logged_in) {
     res.redirect('/');
     return;
