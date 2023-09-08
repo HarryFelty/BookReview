@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { where } = require('sequelize');
+const { Op } = require('sequelize');
 const { User, Post, Book } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -68,7 +68,7 @@ router.get('/post/:id', async (req, res) => {
       console.log(bookInfo)
       console.log(posts)
       res.render('post', {
-    
+
         ...bookInfo,
         posts,
         logged_in: req.session.logged_in
@@ -143,4 +143,29 @@ router.get('/post', async (req, res) => {
 });
 
 
+router.get('/posts/:title', async (req, res) => {
+  console.log("title:", req.params.title);
+  try {
+    let bookPosts = await Post.findAll({
+      include:
+        [{ model: Book }],
+      where: {
+        '$book.title$': {
+          [Op.like]: `%${req.params.title}%`
+        }
+      }
+
+    })
+
+
+
+    bookPosts = bookPosts.map((post) => post.get({ plain: true }))
+    console.log(bookPosts)
+    res.render('postList', { bookPosts });
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+})
 module.exports = router;
