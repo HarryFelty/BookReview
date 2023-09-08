@@ -1,0 +1,16 @@
+<div id="posts">
+    found posts
+    {{#each bookPosts as |post|}}
+    <div class="row align-center mb-5">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            <h3>{{post.book.title}}</h3>
+        </div>
+        <div>
+            <h4>{{post.book.author}}</h4>
+            <p>{{post.text}}</p>
+        </div>
+    </div>
+    {{/each}}
+</div>

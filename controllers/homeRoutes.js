@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { where } = require('sequelize');
+const { Op } = require('sequelize');
 const { User, Post, Book } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -41,14 +41,15 @@ router.get('/', withAuth, async (req, res) => {
       },
       {
         model: Book
+
       }
       ]
     });
 
     posts = posts.map(post => post.get({ plain: true }));
 
-
     // posts = posts.map(post => post.get({ plain: true }));
+
     console.log(posts);
     let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
     console.log(dateFormatPost)
@@ -66,7 +67,57 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/post/:id', async (req, res) => {
+
+  try {
+    const postData = await Post.findAll({
+      where: { id: req.params.id }, include: [{
+        model: Book
+      }]
+    })
+    const posts = postData.map((post) => post.get({ plain: true }))
+    console.log("POSTS", posts);
+    // console.log(posts[0].book.title.trim());
+    let trimmedTitle = posts[0].book.title.split(" ").join("")
+    console.log(trimmedTitle)
+    try {
+      let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${trimmedTitle}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
+      let data = await response.json()
+
+      let bookInfo = {
+        bookTitle: data.items[0].volumeInfo.title,
+        bookAuthor: data.items[0].volumeInfo.authors,
+        bookCategories: data.items[0].volumeInfo.categories,
+        bookDescription: data.items[0].volumeInfo.description,
+        bookMaturity: data.items[0].volumeInfo.maturityRating,
+      }
+      console.log(bookInfo)
+      console.log(posts)
+      res.render('post', {
+
+        ...bookInfo,
+        posts,
+        logged_in: req.session.logged_in
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
+
+    // fetch(`/api/books/${trimmedTitle}`).then(res=> res.json()).then(data=> {
+    //   console.log(data)
+    // })
+    // res.render("post", { posts });
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
 router.get('/login', (req, res) => {
+  console.log("hello")
+  console.log(req.session)
   if (req.session.logged_in) {
     res.redirect('/');
     return;
@@ -108,4 +159,29 @@ router.get('/userposts', async (req, res) => {
   }
 })
 
+router.get('/posts/:title', async (req, res) => {
+  console.log("title:", req.params.title);
+  try {
+    let bookPosts = await Post.findAll({
+      include:
+        [{ model: Book }],
+      where: {
+        '$book.title$': {
+          [Op.like]: `%${req.params.title}%`
+        }
+      }
+
+    })
+
+
+
+    bookPosts = bookPosts.map((post) => post.get({ plain: true }))
+    console.log(bookPosts)
+    res.render('postList', { bookPosts });
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+})
 module.exports = router;
