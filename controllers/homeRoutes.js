@@ -3,28 +3,6 @@ const { Op } = require('sequelize');
 const { User, Post, Book } = require('../models');
 const withAuth = require('../utils/auth');
 
-
-
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       order: [['user_name', 'ASC']],
-//     });
-
-//     const users = userData.map((project) => project.get({ plain: true }));
-//     let posts = await Post.findAll({
-//       include: [{
-//         model: User,
-//         attributes: ['user_name']
-//       },
-//       {
-//         model: Book
-//       }]
-//     });
-//   }
-// } catch (err))
-
 router.get('/', withAuth, async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -103,20 +81,13 @@ router.get('/post/:id', async (req, res) => {
     catch (error) {
       console.log(error)
     }
-
-    // fetch(`/api/books/${trimmedTitle}`).then(res=> res.json()).then(data=> {
-    //   console.log(data)
-    // })
-    // res.render("post", { posts });
   }
   catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 })
 
 router.get('/login', (req, res) => {
-  console.log("hello")
   console.log(req.session)
   if (req.session.logged_in) {
     res.redirect('/');
@@ -127,13 +98,6 @@ router.get('/login', (req, res) => {
 
 router.get('/userposts', async (req, res) => {
   try {
-    // let userPosts = await User.findAll(
-    //   {
-    //     where: {
-    //       id: req.session.user_id
-    //     },
-    //   },
-    // );
 
     let postData = await Post.findAll(
       {
@@ -144,14 +108,9 @@ router.get('/userposts', async (req, res) => {
       },
     );
 
-    // userPosts =userData[0].get({ plain: true }));
     postData = postData.map((post) => post.get({ plain: true }));
-    // console.log(userPosts, postData);
     console.log(postData);
-
-    // res.render('userPosts', { userPosts, postData })
     res.render('userPosts', { postData })
-    // res.json(userPosts);
 
   } catch (err) {
     console.log(err)
@@ -189,27 +148,29 @@ router.get('/post', async (req, res) => {
 
 
 router.get('/posts/:title', async (req, res) => {
-  console.log("title:", req.params.title);
   try {
     let bookPosts = await Post.findAll({
       include:
-        [{ model: Book }],
+        [
+          {model: User, 
+          attributes: ["user_name"]},
+          { model: Book }
+        ],
       where: {
         '$book.title$': {
           [Op.like]: `%${req.params.title}%`
         }
-      }
+      },
+      
 
     })
 
 
 
     bookPosts = bookPosts.map((post) => post.get({ plain: true }))
-    console.log(bookPosts)
     res.render('postList', { bookPosts });
   }
   catch (err) {
-    console.log(err)
     res.status(500).json(err);
   }
 })
