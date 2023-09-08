@@ -112,6 +112,35 @@ router.get('/userposts', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-})
+});
+
+router.get('/makePost', async (req, res) => {
+  try {
+    const makePost = await User.findByPk(id, {
+      include: [{ model: Post }],
+      include: [{ model: Book }],
+    });
+
+    makePost = makePost.map((post) => post.get({ plain: true }));
+
+    res.render('makePost', { makePost })
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/post', async (req, res) => {
+  try {
+
+  await res.render('post')
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+    
+  }
+});
+
 
 module.exports = router;
