@@ -40,9 +40,10 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/userposts', async (req, res) => {
+router.get('/userposts/:id', async (req, res) => {
   try {
-    const userPosts = await User.findByPk(id, {
+    const userPosts = await User.findAll(
+      {}, {
       include: [{ model: Post }],
     });
 

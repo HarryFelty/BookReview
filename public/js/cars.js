@@ -7,11 +7,7 @@ cars.addEventListener("click", async event => {
         const response = await fetch(`/api/cars/${clickedId}`, {
             method: 'DELETE',
 
-            //Following not needed for delete. Would be used in post to send data.
-            // headers: {
-            //     'Content-type': 'applicaiton/json; charset=UTF-8'
-            // },
-            // body: JSON.stringify(clickedId)
+
         });
 
         await response.json();
