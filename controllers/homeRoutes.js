@@ -22,32 +22,6 @@ router.get('/', withAuth, async (req, res) => {
         model: Book
       }]
     });
-<<<<<<< HEAD
-  }
-  catch(err){
-    res.status(500).json(err);
-  }})
-
-router.get('/', withAuth, async (req, res) => {
-  try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['user_name', 'ASC']],
-    });
-
-    const users = userData.map((project) => project.get({ plain: true }));
-
-    let posts = await Post.findAll({
-      include: [{
-        model: User,
-        attributes: ['user_name']
-      }]
-    });
-
-    posts = posts.map(post => post.get({ plain: true }));
-
-=======
->>>>>>> d910a340e8caf2705ce24d7492c8155d91dc180c
 
     posts = posts.map(post => post.get({ plain: true }));
     console.log(posts);
