@@ -23,9 +23,9 @@ const newPostHandler = async (event) => {
 
 
 
-document
-    .querySelector('.new-comment-form')
-    .addEventListener('submit', newPostHandler);
+
+document.querySelector('.new-comment-form');
+document.addEventListener('submit', newPostHandler);
     
 const searchBookHandler = async (event) => {
     event.preventDefault();
