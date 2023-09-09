@@ -26,7 +26,6 @@ router.get('/', withAuth, async (req, res) => {
 
     posts = posts.map(post => post.get({ plain: true }));
 
-    // posts = posts.map(post => post.get({ plain: true }));
 
     console.log(posts);
     let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
@@ -55,7 +54,6 @@ router.get('/post/:id', async (req, res) => {
     })
     const posts = postData.map((post) => post.get({ plain: true }))
     console.log("POSTS", posts);
-    // console.log(posts[0].book.title.trim());
     let trimmedTitle = posts[0].book.title.split(" ").join("")
     console.log(trimmedTitle)
     try {
@@ -123,8 +121,10 @@ router.get('/posts/:title', async (req, res) => {
     let bookPosts = await Post.findAll({
       include:
         [
-          {model: User, 
-          attributes: ["user_name"]},
+          {
+            model: User,
+            attributes: ["user_name"]
+          },
           { model: Book }
         ],
       where: {
@@ -132,7 +132,7 @@ router.get('/posts/:title', async (req, res) => {
           [Op.like]: `%${req.params.title}%`
         }
       },
-      
+
 
     })
 
