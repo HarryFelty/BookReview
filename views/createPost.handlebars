@@ -1,0 +1,36 @@
+<div class=" flex flex-col items-center ">
+    <h2>Create A Review</h2>
+
+    <form class="form signup-form">
+        <div class="form-group">
+            <label for="post-title"></label>
+            <input class="form-input block m-3 text-sm text-slate-500 mr-4 py-2 px-4 rounded-full  text-sm font-semibold bg-violet-50 text-violet-700 hover:bg-violet-100 border-2 border-black 
+    placeholder:italic placeholder:text-slate-400 sm:text-sm" placeholder="Username" type="text" id="post-title" />
+        </div>
+        <div class="form-group">
+            <label for="post-text"></label>
+            <input class="form-input block m-3 text-sm text-slate-500 mr-4 py-2 px-4 rounded-full  text-sm font-semibold bg-violet-50 text-violet-700 hover:bg-violet-100 border-2 border-black
+    placeholder:italic placeholder:text-slate-400 sm:text-sm" placeholder="Email" type="text" type="text"
+                id="post-text" />
+        </div>
+        <div class="form-group">
+            <label for="password-signup"></label>
+            <textarea class="form-input block m-3 text-sm text-slate-500 mr-4 py-2 px-4 rounded-full  text-sm font-semibold bg-violet-50 text-violet-700 hover:bg-violet-100 border-2 border-black
+    placeholder:italic placeholder:text-slate-400 sm:text-sm" placeholder="Password" type="text" type="password"
+                id="password-signup">{{user_id}}</textarea>
+
+        </div>
+        <div class="form-group">
+            <label for="password-signup"></label>
+            <textarea class="form-input block m-3 text-sm text-slate-500 mr-4 py-2 px-4 rounded-full  text-sm font-semibold bg-violet-50 text-violet-700 hover:bg-violet-100 border-2 border-black
+    placeholder:italic placeholder:text-slate-400 sm:text-sm" placeholder="Password" type="text" type="password"
+                id="password-signup">{{book_id}}</textarea>
+
+        </div>
+        <div class="form-group">
+            <button
+                class="btn mx-auto m-5 px-10 py-4 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 text-xl hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+                type="submit">Post Review</button>
+        </div>
+    </form>
+</div>
