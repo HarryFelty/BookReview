@@ -37,6 +37,12 @@ Book.init(
         },
         age_rating: {
             type: DataTypes.STRING
+        },
+        page_count: {
+            type: DataTypes.INTEGER
+        },
+        publication_date:{
+            type: DataTypes.STRING
         }
     },
     {

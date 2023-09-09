@@ -53,37 +53,18 @@ router.get('/post/:id', async (req, res) => {
       }]
     })
     const posts = postData.map((post) => post.get({ plain: true }))
-    console.log("POSTS", posts);
-    let trimmedTitle = posts[0].book.title.split(" ").join("")
-    console.log(trimmedTitle)
-    try {
-      let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${trimmedTitle}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
-      let data = await response.json()
-
-      let bookInfo = {
-        bookTitle: data.items[0].volumeInfo.title,
-        bookAuthor: data.items[0].volumeInfo.authors,
-        bookCategories: data.items[0].volumeInfo.categories,
-        bookDescription: data.items[0].volumeInfo.description,
-        bookMaturity: data.items[0].volumeInfo.maturityRating,
-      }
-      console.log(bookInfo)
-      console.log(posts)
-      res.render('post', {
-
-        ...bookInfo,
-        posts,
-        logged_in: req.session.logged_in
-      })
+    res.status(200).json(posts);
+      // res.render('post', {
+      //   posts,
+      //   logged_in: req.session.logged_in
+      // })
     }
-    catch (error) {
-      console.log(error)
+    catch (err) {
+      res.status(500).json(err);
     }
   }
-  catch (err) {
-    res.status(500).json(err);
-  }
-})
+  
+)
 
 router.get('/login', (req, res) => {
   console.log(req.session)
