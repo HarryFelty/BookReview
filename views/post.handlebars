@@ -1,8 +1,7 @@
 {{> navBar}}
 
-
 {{#each posts as |post|}}
-{{/each}}
+
 <div class="flex space-x-6">
 
     <div id="bookInfo" class="w-2/6 m-4 mt-8 ml-9
@@ -12,18 +11,18 @@ rounded shadow-lg border border-black mt-4 bg-cyan-50">
         <div class="m-2 border-2 border-black bg-sky-100">
 
             <h1 class=" m-4 text-2xl italic flex flex-col items-center">
-                {{bookTitle}}
+                {{book.title}}
             </h1>
 
             <div class=" m-4 text-lg flex flex-col items-center">
-                by {{bookAuthor}}
+                by {{book.author}}
             </div>
         </div>
 
         <div class="m-2 border-2 border-black bg-teal-100">
 
             <div class=" m-2">
-                Category: {{bookCategories}}
+                Category: {{book.category}}
             </div>
 
             <div class=" m-2">
@@ -34,16 +33,16 @@ rounded shadow-lg border border-black mt-4 bg-cyan-50">
             </div>
 
             <div class=" m-2">
-                Maturity: {{bookMaturity}}
+                Maturity: {{book.maturity}}
             </div>
         </div>
 
         <div class=" m-4 text-gray-600">
-            {{bookDescription}}
+            {{book.description}}
         </div>
         </div>
-{{#each posts as |post|}}
-{{/each}}
+
+
             <div id="post" class="w-1/2 
     rounded shadow-lg border border-gray mt-4 bg-cyan-50">
                 <h1>post title{{post.title}}</h1>
@@ -53,5 +52,5 @@ rounded shadow-lg border border-black mt-4 bg-cyan-50">
             </div>
     </div>
 
-
+{{/each}}
     <script src="/js/post.js"></script>

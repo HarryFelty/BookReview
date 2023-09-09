@@ -26,7 +26,6 @@ router.get('/', withAuth, async (req, res) => {
 
     posts = posts.map(post => post.get({ plain: true }));
 
-    // posts = posts.map(post => post.get({ plain: true }));
 
     console.log(posts);
     let dateFormatPost = posts.map((post) => ({ ...post, createdAt: new Date(post.createdAt).toLocaleString() }))
@@ -54,38 +53,17 @@ router.get('/post/:id', async (req, res) => {
       }]
     })
     const posts = postData.map((post) => post.get({ plain: true }))
-    console.log("POSTS", posts);
-    // console.log(posts[0].book.title.trim());
-    let trimmedTitle = posts[0].book.title.split(" ").join("")
-    console.log(trimmedTitle)
-    try {
-      let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${trimmedTitle}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
-      let data = await response.json()
-
-      let bookInfo = {
-        bookTitle: data.items[0].volumeInfo.title,
-        bookAuthor: data.items[0].volumeInfo.authors,
-        bookCategories: data.items[0].volumeInfo.categories,
-        bookDescription: data.items[0].volumeInfo.description,
-        bookMaturity: data.items[0].volumeInfo.maturityRating,
-      }
-      console.log(bookInfo)
-      console.log(posts)
       res.render('post', {
-
-        ...bookInfo,
         posts,
         logged_in: req.session.logged_in
       })
     }
-    catch (error) {
-      console.log(error)
+    catch (err) {
+      res.status(500).json(err);
     }
   }
-  catch (err) {
-    res.status(500).json(err);
-  }
-})
+  
+)
 
 router.get('/login', (req, res) => {
   console.log(req.session)
@@ -152,8 +130,10 @@ router.get('/posts/:title', async (req, res) => {
     let bookPosts = await Post.findAll({
       include:
         [
-          {model: User, 
-          attributes: ["user_name"]},
+          {
+            model: User,
+            attributes: ["user_name"]
+          },
           { model: Book }
         ],
       where: {
@@ -161,7 +141,7 @@ router.get('/posts/:title', async (req, res) => {
           [Op.like]: `%${req.params.title}%`
         }
       },
-      
+
 
     })
 

@@ -16,6 +16,8 @@ router.post("/:title", async (req, res) => {
                         category: data.items[0].volumeInfo.categories[0],
                         description: data.items[0].volumeInfo.description,
                         age_rating: data.items[0].volumeInfo.maturityRating,
+                        page_count: data.items[0].volumeInfo.pageCount,
+                        publication_date: data.items[0].volumeInfo.publishedDate
                     }
                 )
                 res.status(200).json(data);
