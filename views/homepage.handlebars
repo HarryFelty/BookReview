@@ -14,21 +14,27 @@
 </div>
 
   </div>
-  <div class="p-4 flex flex-col border-double border-2 border-black">
-    <h3 class="underline text-2xl text-center">Old Book Reviews</h3>
+  <div class="p-4 flex flex-col border-double border-2 border-black shadow-2xl shadow">
+    <h3 class="underline text-2xl text-center">Reviews</h3>
 
 
     <div id="posts">
       {{#each dateFormatPost as |post|}}
-      <div class = "border-b-2 border-dashed border-gray-500">
-        <div>
-          <h3 class="text-xl m-5">{{post.title}} by {{post.user.user_name}}</h3>
+
+      <div class=" rounded shadow-lg border border-gray mt-4 bg-cyan-50">
+
+        <div class="px-6 py-2">
+
+          <h3 class="font-bold text-xl ">{{post.title}} by {{post.user.user_name}}</h3>
         </div>
-        <div>
-          <p class="inline italic ml-3">{{post.book.title}}</p>
+
+        <div class="text-black px-6 py-2">
+          <a href="/post/{{post.book.id}}" class="inline italic underline">{{post.book.title}}</a>
           <p class="inline "> by {{post.book.author}}</p>
-          <p class="m-3">{{post.text}}</p>
+          <p class="inline-block bg-gray-200 rounded-md px-3 py-1 mt-2 text-sm font-semibold text-gray-700 mr-2">
+            "{{post.text}}"</p>
         </div>
+       
       </div>
       {{else}}
       <p>No posts available.</p>

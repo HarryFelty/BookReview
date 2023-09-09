@@ -94,7 +94,36 @@ router.get('/userposts', async (req, res) => {
     console.log(err)
     res.status(500).json(err);
   }
-})
+});
+
+router.get('/makePost', async (req, res) => {
+  try {
+    let makePost = await User.findByPk(req.session.user_id, { 
+      include: [{ model: Post, include: [{ model: Book }] }],
+    });
+
+    makePost = makePost.get({ plain: true });
+
+    res.render('makePost', { makePost })
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+});
+
+router.get('/post', async (req, res) => {
+  try {
+
+  await res.render('post')
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+    
+  }
+});
+
 
 router.get('/posts/:title', async (req, res) => {
   try {
