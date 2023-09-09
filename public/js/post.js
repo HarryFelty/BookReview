@@ -6,6 +6,7 @@ async function fetchBooks(){
     const response = await fetch(`/api/books/${title}`)
     let data = response.json()
     console.log(data)
+    console.log(title)
 }
 
 fetchBooks()

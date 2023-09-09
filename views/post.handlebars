@@ -1,27 +1,57 @@
-{{#each posts as |post|}}
-<div id = "post">
-    <h1>{{title}}</h1>
-    <div>
-        {{text}}
-    </div>
-</div>
-{{/each}}
-<div id = "bookInfo">
-</div>
-<h1>
-title: {{bookTitle}}
-</h1>
-<div>
-Author: {{bookAuthor}}
-</div>
-<div>
+{{> navBar}}
 
-Category: {{bookCategories}}
-</div>
-<div>
-Maturity: {{bookMaturity}}
-</div>
-<div>
-Descrption: {{bookDescription}}
-</div>
-<script src="/js/post.js"></script>
+
+{{#each posts as |post|}}
+{{/each}}
+<div class="flex space-x-6">
+
+    <div id="bookInfo" class="w-2/6 m-4 mt-8 ml-9
+overflow-auto
+rounded shadow-lg border border-black mt-4 bg-cyan-50">
+
+        <div class="m-2 border-2 border-black bg-sky-100">
+
+            <h1 class=" m-4 text-2xl italic flex flex-col items-center">
+                {{bookTitle}}
+            </h1>
+
+            <div class=" m-4 text-lg flex flex-col items-center">
+                by {{bookAuthor}}
+            </div>
+        </div>
+
+        <div class="m-2 border-2 border-black bg-teal-100">
+
+            <div class=" m-2">
+                Category: {{bookCategories}}
+            </div>
+
+            <div class=" m-2">
+                Year: {{book.pub_year}}
+            </div>
+            <div class=" m-2">
+                Pages: {{book.pages}}
+            </div>
+
+            <div class=" m-2">
+                Maturity: {{bookMaturity}}
+            </div>
+        </div>
+
+        <div class=" m-4 text-gray-600">
+            {{bookDescription}}
+        </div>
+        </div>
+{{#each posts as |post|}}
+{{/each}}
+            <div id="post" class="w-1/2 
+    rounded shadow-lg border border-gray mt-4 bg-cyan-50">
+                <h1>post title{{post.title}}</h1>
+                <div>
+                    {{post.text}}
+                </div>
+            </div>
+    </div>
+
+
+    <script src="/js/post.js"></script>

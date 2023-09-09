@@ -1,10 +1,11 @@
+{{> navBar}}
+
 <div id="posts">
     found posts
     {{#each bookPosts as |post|}}
-    <div class="row align-center mb-5">
-        <div class="col-md-6">
-        </div>
-        <div class="col-md-6">
+    <div class="rounded shadow-lg border border-gray mt-4 bg-cyan-50">
+        Book Info
+        <div class="">
             <p>{{post.title}}</p>
             <p>{{post.text}}</p>
             <p> post by: {{post.user.user_name}}</p>
@@ -17,3 +18,5 @@
     </div>
     {{/each}}
 </div>
+
+<script src="/navBar"></script>
