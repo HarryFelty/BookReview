@@ -80,10 +80,10 @@ router.get('/login', (req, res) => {
 
 //routes users through the create post process
 router.get("/createPost", async (req, res) => {
-  try{
+  try {
     res.render('createBook');
   }
-  catch(err){
+  catch (err) {
     res.status(500).json(err);
   }
 })
@@ -102,7 +102,7 @@ router.get('/userposts', async (req, res) => {
     );
 
     postData = postData.map((post) => post.get({ plain: true }));
-    console.log(postData);
+
     res.render('userPosts', { postData })
 
   } catch (err) {
@@ -174,19 +174,21 @@ module.exports = router;
 
 //meant to get a book id from the title, and render the "createPost" page
 router.get('/getBook/:title', async (req, res) => {
-  try{
-  let books = await Book.findAll({
-    where: {
-      title: {
-        [Op.like]: `%${req.params.title}`
-      }
-    },
-  })
-  books = books.map((book) => book.get({plain: true}))
-  let bookID = books[0].id;
-  res.render('createPost', {bookID});
-}
-catch(err){
-  res.status(500).json(err)
-}
+  try {
+    let books = await Book.findAll({
+      where: {
+        title: {
+          [Op.like]: `%${req.params.title}`
+        }
+      },
+    })
+
+    books = books.map((book) => book.get({ plain: true }))
+    let bookID = books[0].id;
+
+    res.render('createPost', { bookID });
+  }
+  catch (err) {
+    res.status(500).json(err)
+  }
 })
