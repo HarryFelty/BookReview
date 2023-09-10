@@ -1,1 +1,7 @@
-body{min-height: 100vh;}
+body {
+    min-height: 100vh;
+}
+
+.hidden {
+    visibility: hidden;
+}
