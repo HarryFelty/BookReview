@@ -8,7 +8,7 @@ router.post("/:title", async (req, res) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data.items[0].volumeInfo.authors[0]);
-                Book.create(
+                let newBook = Book.create(
                     {
 
                         title: data.items[0].volumeInfo.title,
@@ -20,7 +20,7 @@ router.post("/:title", async (req, res) => {
                         publication_date: data.items[0].volumeInfo.publishedDate
                     }
                 )
-                res.status(200).json(data);
+                res.status(200).json(newBook);
             })
         
     }
