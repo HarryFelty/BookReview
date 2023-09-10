@@ -3,6 +3,8 @@ const { Op } = require('sequelize');
 const { User, Post, Book } = require('../models');
 const withAuth = require('../utils/auth');
 
+
+//renders homepage when a user is logged in
 router.get('/', withAuth, async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -44,6 +46,7 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+//gets a post by id, used when clicking on a specific post
 router.get('/post/:id', async (req, res) => {
 
   try {
@@ -53,18 +56,19 @@ router.get('/post/:id', async (req, res) => {
       }]
     })
     const posts = postData.map((post) => post.get({ plain: true }))
-      res.render('post', {
-        posts,
-        logged_in: req.session.logged_in
-      })
-    }
-    catch (err) {
-      res.status(500).json(err);
-    }
+    res.render('post', {
+      posts,
+      logged_in: req.session.logged_in
+    })
   }
-  
+  catch (err) {
+    res.status(500).json(err);
+  }
+}
+
 )
 
+//logs in a user
 router.get('/login', (req, res) => {
   console.log(req.session)
   if (req.session.logged_in) {
@@ -74,6 +78,17 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+//routes users through the create post process
+router.get("/createPost", async (req, res) => {
+  try{
+    res.render('createBook');
+  }
+  catch(err){
+    res.status(500).json(err);
+  }
+})
+
+//gets a user's posts and renders them on users posts
 router.get('/userposts', async (req, res) => {
   try {
 
@@ -96,9 +111,10 @@ router.get('/userposts', async (req, res) => {
   }
 });
 
+//router for make post (unsure if we need this)
 router.get('/makePost', async (req, res) => {
   try {
-    let makePost = await User.findByPk(req.session.user_id, { 
+    let makePost = await User.findByPk(req.session.user_id, {
       include: [{ model: Post, include: [{ model: Book }] }],
     });
 
@@ -115,17 +131,17 @@ router.get('/makePost', async (req, res) => {
 router.get('/post', async (req, res) => {
   try {
 
-  await res.render('post')
+    await res.render('post')
 
   } catch (err) {
     console.log(err)
     res.status(500).json(err);
-    
+
   }
 });
 
-
-router.get('/posts/:title', async (req, res) => {
+// meant to render the "postList" page when given a title from the search bar on the homepage
+router.get('/getPosts/:title', async (req, res) => {
   try {
     let bookPosts = await Post.findAll({
       include:
@@ -155,3 +171,22 @@ router.get('/posts/:title', async (req, res) => {
   }
 })
 module.exports = router;
+
+//meant to get a book id from the title, and render the "createPost" page
+router.get('/getBook/:title', async (req, res) => {
+  try{
+  let books = await Book.findAll({
+    where: {
+      title: {
+        [Op.like]: `%${req.params.title}`
+      }
+    },
+  })
+  books = books.map((book) => book.get({plain: true}))
+  let bookID = books[0].id;
+  res.render('createPost', {bookID});
+}
+catch(err){
+  res.status(500).json(err)
+}
+})
