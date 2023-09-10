@@ -4,7 +4,7 @@ const submitHandler = async (event) => {
 
     let title = document.querySelector("#post-title").value.trim();
     let text = document.querySelector('#post-text').value.trim();
-    let book_id = document.querySelector('#book-id').value;
+    let book_id = document.querySelector('#book-id').textContent;
 
     if (title && text) {
         const newPost = await fetch('/api/post/', {
