@@ -25,15 +25,34 @@
                 Category: {{post.book.category}}
             </div>
 
+            {{#if post.book.pub_year}}
             <div class=" m-2">
                 Year: {{post.book.pub_year}}
             </div>
+            {{else if post.book.publication_date}}
+            <div class=" m-2">
+                Year: {{post.book.publication_date}}
+            </div>
+            {{else}}
+
+            {{/if}}
+
+            {{#if post.book.pages}}
             <div class=" m-2">
                 Pages: {{post.book.pages}}
+
             </div>
+            {{else if post.book.page_count}}
+            <div class=" m-2">
+                Pages: {{post.book.page_count}}
+
+            </div>
+            {{else}}
+
+            {{/if}}
 
             <div class=" m-2">
-                Maturity: {{post.book.maturity}}
+                Maturity: {{post.book.age_rating}}
             </div>
         </div>
 
@@ -56,4 +75,3 @@
 
 {{/each}}
 <script src="../js/post.js"></script>
-<script src="../js/logout.js"></script>

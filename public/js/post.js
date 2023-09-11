@@ -1,13 +1,13 @@
-const bookInfo = document.querySelector('#bookInfo');
+// const bookInfo = document.querySelector('#bookInfo');
 
-console.log("post.js loaded")
-async function fetchBooks(){
+// console.log("post.js loaded")
+// async function fetchBooks(){
     
-    const response = await fetch(`/api/books/${title}`)
-    let data = response.json()
-    console.log(data)
-    console.log(title)
-}
+//     const response = await fetch(`/api/books/${title}`)
+//     let data = response.json()
+//     console.log(data)
+//     console.log(title)
+// }
 
 fetchBooks()
 
