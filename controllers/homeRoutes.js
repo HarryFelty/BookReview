@@ -48,11 +48,13 @@ router.get('/', withAuth, async (req, res) => {
 
 //gets a post by id, used when clicking on a specific post
 router.get('/post/:id', async (req, res) => {
-
+  console.log(req.params.id)
   try {
     const postData = await Post.findAll({
-      where: { id: req.params.id }, include: [{
-        model: Book
+      where: { id: req.params.id },
+      include: [{
+        model: Book,
+        // where: book_id
       }]
     })
     const posts = postData.map((post) => post.get({ plain: true }))
