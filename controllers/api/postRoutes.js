@@ -2,17 +2,18 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 
 router.post('/', async (req, res) => {
-    try{
+    try {
         let newPost = await Post.create(
             {
                 title: req.body.title,
                 text: req.body.text,
-                user_id: req.body.user_id,
+                user_id: req.session.user_id,
                 book_id: req.body.book_id,
             })
+        console.log(newPost);
         res.status(200).json(newPost);
     }
-    catch (err){
+    catch (err) {
         res.status(500).json(err)
     }
 });

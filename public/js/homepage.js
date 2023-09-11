@@ -5,7 +5,7 @@ const newPostHandler = async (event) => {
     const post_id = event.target.dataset.postid
     console.log(post_id)
     if (content && post_id) {
-        const response = await fetch(`/api/posts`, {
+        const response = await fetch(`/api/post/`, {
             method: 'POST',
             body: JSON.stringify({ content, post_id }),
             headers: {
@@ -21,18 +21,15 @@ const newPostHandler = async (event) => {
     }
 };
 
+document.querySelector('.new-comment-form');
+document.addEventListener('submit', newPostHandler);
 
-
-document
-    .querySelector('.new-comment-form')
-    .addEventListener('submit', newPostHandler);
-    
 const searchBookHandler = async (event) => {
     event.preventDefault();
 
     let bookTitle = document.querySelector('#bookSearch').value.trim();
     console.log(bookTitle)
-    document.location.replace(`/posts/${bookTitle}`)
+    document.location.replace(`/getPosts/${bookTitle}`)
 }
 
 document.querySelector("#bookSearchButton").addEventListener("click", searchBookHandler)
