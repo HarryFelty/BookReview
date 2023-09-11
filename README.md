@@ -32,6 +32,10 @@ Users can browse reviews of books by clicking on the "Browse Reviews" button.
 Use the search bar to find specific books or browse reviews by book title.
 Click on a review to view the full details.
 
+![Screenshot 2023-09-11 101217](https://github.com/HarryFelty/BookReview/assets/125701349/779e11f9-bd59-439c-80bc-db0ba720c59f)
+
+![Screenshot 2023-09-11 101247](https://github.com/HarryFelty/BookReview/assets/125701349/fe2b4104-4243-458d-92fb-9c35fbe65416)
+
 ## Features
 ### User Profiles
 Each user has a profile and can view a page displaying their posted reviews.
