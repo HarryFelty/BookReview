@@ -1,10 +1,11 @@
 {{> navBar}}
 
-<div id="posts">
-    found posts
+<div id="postsList">
+   
     {{#each bookPosts as |post|}}
-    <div class="rounded shadow-lg border border-gray mt-4 bg-cyan-50">
-        Book Info
+    <div class="">
+        <div class="rounded shadow-lg border border-gray mt-4 bg-cyan-50">
+        </div>
         <div class="">
             <p>{{post.title}}</p>
             <p>{{post.text}}</p>

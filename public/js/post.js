@@ -9,4 +9,5 @@
 //     console.log(title)
 // }
 
-// fetchBooks()
+fetchBooks()
+

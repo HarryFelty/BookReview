@@ -5,8 +5,8 @@
 <div class="flex space-x-6">
 
     <div id="bookInfo" class="w-2/6 m-4 mt-8 ml-9
-overflow-auto
-rounded shadow-lg border border-black mt-4 bg-cyan-50">
+    overflow-auto
+    rounded shadow-lg border border-black mt-4 bg-cyan-50">
 
         <div class="m-2 border-2 border-black bg-sky-100">
 
@@ -62,10 +62,12 @@ rounded shadow-lg border border-black mt-4 bg-cyan-50">
     </div>
 
 
-    <div id="post" class="w-1/2 
+    <div id="post" class="w-1/2 px-6 py-2
     rounded shadow-lg border border-gray mt-4 bg-cyan-50">
-        <h1>{{post.title}}</h1>
-        <div>
+        <h1 class="font-bold text-xl ">{{post.title}} </h1>
+        {{!-- {{post.user.user_name}} says--}}
+
+        <div class="inline-block bg-gray-200 rounded-md px-3 py-1 mt-2 text-sm font-semibold text-gray-700 mr-2">
             {{post.text}}
         </div>
     </div>
