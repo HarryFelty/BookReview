@@ -1,7 +1,4 @@
 
-
-
-
 const addBookHandler = async (event) => {
     event.preventDefault();
 
@@ -12,8 +9,13 @@ const addBookHandler = async (event) => {
             'Content-Type': 'application/json',
         },
     })
+
+    let newBook = await postBook.json()
+    console.log(newBook)
+
     if (postBook.ok) {
-        document.location.replace(`/getBook/${bookTitle}`);
+        document.location.replace(`/getBook/id/${newBook.id}`);
     }
 }
+
 document.querySelector("#addBook").addEventListener("click", addBookHandler)
