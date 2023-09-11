@@ -40,17 +40,19 @@ rounded shadow-lg border border-black mt-4 bg-cyan-50">
         <div class=" m-4 text-gray-600">
             {{book.description}}
         </div>
-        </div>
-
-
-            <div id="post" class="w-1/2 
-    rounded shadow-lg border border-gray mt-4 bg-cyan-50">
-                <h1>post title{{post.title}}</h1>
-                <div>
-                    {{post.text}}
-                </div>
-            </div>
     </div>
 
+
+    <div id="post" class="w-1/2 px-6 py-2
+    rounded shadow-lg border border-gray mt-4 bg-cyan-50">
+        <h1 class="font-bold text-xl ">{{post.title}} </h1> 
+        {{!-- {{post.user.user_name}} says--}}
+
+        <div class="inline-block bg-gray-200 rounded-md px-3 py-1 mt-2 text-sm font-semibold text-gray-700 mr-2">
+            {{post.text}}
+        </div>
+    </div>
+</div>
+
 {{/each}}
-    <script src="/js/post.js"></script>
+<script src="/js/post.js"></script>
