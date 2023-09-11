@@ -143,7 +143,7 @@ router.get('/post', async (req, res) => {
   }
 });
 
-// meant to render the "postList" page when given a title from the search bar on the homepage
+
 router.get('/getPosts/:title', async (req, res) => {
   try {
     let bookPosts = await Post.findAll({
@@ -176,7 +176,7 @@ router.get('/getPosts/:title', async (req, res) => {
 module.exports = router;
 
 //meant to get a book id from the title, and render the "createPost" page
-router.get('/getBook/:title', async (req, res) => {
+router.get('/getBook/title/:title', async (req, res) => {
   try {
     let books = await Book.findAll({
       where: {
@@ -188,10 +188,29 @@ router.get('/getBook/:title', async (req, res) => {
 
     books = books.map((book) => book.get({ plain: true }))
     let bookID = books[0].id;
-
+    console.log(books[0])
     res.render('createPost', { bookID });
   }
   catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})
+router.get('/getBook/id/:id', async (req, res) => {
+  try {
+    let books = await Book.findAll({
+      where: {
+        id: req.params.id
+      },
+    })
+
+    books = books.map((book) => book.get({ plain: true }))
+    let bookID = books[0].id;
+    console.log(books[0])
+    res.render('createPost', { bookID });
+  }
+  catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 })

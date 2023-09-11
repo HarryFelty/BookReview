@@ -6,9 +6,9 @@ router.post("/:title", async (req, res) => {
     try {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${req.params.title}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
             .then(res => res.json())
-            .then(data => {
+            .then(async data => {
                 console.log(data.items[0].volumeInfo.authors[0]);
-                let newBook = Book.create(
+                let newBook = await Book.create(
                     {
 
                         title: data.items[0].volumeInfo.title,
@@ -22,10 +22,10 @@ router.post("/:title", async (req, res) => {
                 )
                 res.status(200).json(newBook);
             })
-        
+
     }
     catch (err) {
-        // console.log(err)
+        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -34,10 +34,10 @@ router.get("/:id", async (req, res) => {
     try {
         let id = req.params.id;
         let getBook = await Book.findByPk(id);
-        if(getBook === null){
+        if (getBook === null) {
             res.status(500).json("book not found");
         }
-        else{
+        else {
             res.status(200).json(getBook);
         }
     }
@@ -51,7 +51,7 @@ router.post("/:title", async (req, res) => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=AIzaSyCsZ-CQ-6sL4vI3AkO97A2SZ9W83Lqt_Kg`)
             .then(res => res.json())
             .then(data => {
-               Book.create(
+                Book.create(
                     {
                         title: data.items[0].volumeInfo.title,
                         bookAuthor: data.items[0].volumeInfo.authors,
@@ -61,7 +61,7 @@ router.post("/:title", async (req, res) => {
                     }
                 )
             })
-            res.status(200).json(data);
+        res.status(200).json(data);
     }
     catch (err) {
         console.log(err)
